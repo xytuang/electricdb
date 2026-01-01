@@ -50,6 +50,24 @@ if (ENABLE_CLANG_TIDY)
     )
 endif()
 
+find_program(CLANG_FORMAT_EXE NAMES clang-format)
+
+if (CLANG_FORMAT_EXE)
+    file(GLOB_RECURSE ALL_CXX_FILES
+        ${PROJECT_SOURCE_DIR}/src/*.cpp
+        ${PROJECT_SOURCE_DIR}/src/*.h
+        ${PROJECT_SOURCE_DIR}/src/*.hpp
+    )
+
+    add_custom_target(format
+        COMMAND ${CLANG_FORMAT_EXE}
+        -i
+        -style=file
+        ${ALL_CXX_FILES}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+        COMMENT "Running clang-format on source files"
+    )
+endif()
 # ---------------------------------
 # Common interface target
 # ---------------------------------

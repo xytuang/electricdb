@@ -1,0 +1,57 @@
+BasedOnStyle: LLVM
+Language: Cpp
+
+# Indentation & layout
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 8
+ColumnLimit: 100
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: false
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeElse: false
+  IndentBraces: false
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignOperands: true
+AlignTrailingComments: true
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+
+# Pointer & reference style
+PointerAlignment: Right
+ReferenceAlignment: Pointer
+
+# Short statements
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# Includes
+SortIncludes: true
+IncludeBlocks: Regroup
+
+# Namespaces
+NamespaceIndentation: None
+CompactNamespaces: false
+
+# Comments
+ReflowComments: true
+
+# Templates / macros
+AlwaysBreakTemplateDeclarations: Yes
+MacroBlockBegin: ""
+MacroBlockEnd: ""
+
+# Disable formatting for generated / special code if needed
+DisableFormat: false
