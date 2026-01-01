@@ -9,6 +9,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # ---------------------------------
 option(ENABLE_LOGGING "Enable Logging" ON)
 
+option(ENABLE_CLANG_TIDY "Enable clang-tidy analysis" ON)
+
 # ---------------------------------
 # Build configurations
 # ---------------------------------
@@ -33,8 +35,20 @@ endif()
 # ---------------------------------
 # Dependencies
 # ---------------------------------
+if (ENABLE_CLANG_TIDY)
+    find_program(CLANG_TIDY_EXE NAMES clang-tidy)
+    if (NOT CLANG_TIDY_EXE)
+        message(FATAL_ERROR "clang-tidy requested but not found")
+    endif()
+endif()
 
-
+if (ENABLE_CLANG_TIDY)
+    set(CMAKE_CXX_CLANG_TIDY
+        ${CLANG_TIDY_EXE};
+        --warnings-as-errors=*;
+        --header-filter=^${PROJECT_SOURCE_DIR}/src/
+    )
+endif()
 
 # ---------------------------------
 # Common interface target
