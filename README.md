@@ -1,4 +1,4 @@
-# prediction_markets
+# ElectricDB
 
 ## Dependencies
 
