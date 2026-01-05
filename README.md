@@ -32,3 +32,12 @@ cmake -S . -B build-debug -DCMAKE_BUILD_TYPE=Debug
 
 cmake --build build-debug --target format
 ```
+
+## Testing
+```
+ctest --test-dir build-debug    # For Debug build
+
+# For verbose output
+ctest --test-dir build-debug --output-on-failure
+```
+
