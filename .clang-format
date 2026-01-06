@@ -4,20 +4,20 @@ Language: Cpp
 # Indentation & layout
 IndentWidth: 4
 TabWidth: 4
-UseTab: Never
+UseTab: Always
 ContinuationIndentWidth: 8
 ColumnLimit: 100
 
 # Braces
 BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterClass: true
+  AfterClass: false
   AfterControlStatement: false
-  AfterEnum: true
-  AfterFunction: true
-  AfterNamespace: true
-  AfterStruct: true
-  AfterUnion: true
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
   BeforeElse: false
   IndentBraces: false
 
