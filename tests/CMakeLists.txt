@@ -9,3 +9,4 @@ if (NOT CMAKE_CONFIGURATION_TYPES)
 endif()
 
 add_subdirectory(util)
+add_subdirectory(execution)
