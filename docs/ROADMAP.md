@@ -58,11 +58,9 @@ Exit Criteria:
 
 Tasks:
 
-* Bitmap helpers
 * Hash utilities
-* SIMD helpers
-* String pool
-* Stopwatch / timing helpers
+* Set up SIMD helpers
+* Set up Stopwatch / timing helpers
 
 Exit Criteria:
 
