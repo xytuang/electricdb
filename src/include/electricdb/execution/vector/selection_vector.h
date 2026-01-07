@@ -8,7 +8,7 @@
 
 namespace electricdb {
 
-using sel_t = uint16_t;
+using sel_t = uint32_t;
 using idx_t = uint32_t;
 
 class SelectionVector {
