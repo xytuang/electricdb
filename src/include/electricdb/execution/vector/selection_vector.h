@@ -77,7 +77,7 @@ class SelectionVector {
 	 * @return true if data_ == nullptr
 	 * @return false otherwise
 	 */
-	inline bool IsSet() const noexcept { return data_ != nullptr; }
+	inline bool IsIdentity() const noexcept { return data_ == nullptr; }
 
 	/**
 	 * @brief Set ith entry to row index `row`

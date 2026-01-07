@@ -22,7 +22,7 @@ TEST_F(SelectionVectorTest, IdentityGet) {
         EXPECT_EQ(sel.Get(i), i);
     }
 
-    EXPECT_FALSE(sel.IsSet());
+    EXPECT_TRUE(sel.IsIdentity());
 }
 
 TEST_F(SelectionVectorTest, SetAndGet) {
@@ -32,7 +32,7 @@ TEST_F(SelectionVectorTest, SetAndGet) {
     sel.Set(1, 7);
     sel.Set(2, 9);
 
-    EXPECT_TRUE(sel.IsSet());
+    EXPECT_FALSE(sel.IsIdentity());
     EXPECT_EQ(sel.Get(0), 5);
     EXPECT_EQ(sel.Get(1), 7);
     EXPECT_EQ(sel.Get(2), 9);
@@ -56,11 +56,11 @@ TEST_F(SelectionVectorTest, ResetRestoresIdentity) {
     sel.Set(0, 3);
     sel.Set(1, 4);
 
-    EXPECT_TRUE(sel.IsSet());
+    EXPECT_FALSE(sel.IsIdentity());
 
     sel.Reset();
 
-    EXPECT_FALSE(sel.IsSet());
+    EXPECT_TRUE(sel.IsIdentity());
     EXPECT_EQ(sel.Get(0), 0);
     EXPECT_EQ(sel.Get(1), 1);
 }
@@ -73,7 +73,7 @@ TEST_F(SelectionVectorTest, ReferenceSharesMapping) {
     SelectionVector ref;
     ref.Reference(src);
 
-    EXPECT_TRUE(ref.IsSet());
+    EXPECT_FALSE(ref.IsIdentity());
     EXPECT_EQ(ref.Get(0), 2);
     EXPECT_EQ(ref.Get(1), 4);
 }
