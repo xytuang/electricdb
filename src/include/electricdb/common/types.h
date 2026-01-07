@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <stdexcept>
 #include <type_traits>
 
 namespace electricdb {
@@ -37,5 +38,22 @@ struct LogicalTypeTrait<bool> {
 template <typename T>
 bool TypeMatches(LogicalType type) {
 	return LogicalTypeTrait<std::remove_cv_t<T>>::type == type;
+}
+
+inline uint32_t GetTypeSize(LogicalType type) {
+	switch (type) {
+	case LogicalType::INT32:
+		return sizeof(uint32_t);
+	case LogicalType::INT64:
+		return sizeof(uint64_t);
+	case LogicalType::FLOAT:
+		return sizeof(float);
+	case LogicalType::DOUBLE:
+		return sizeof(double);
+	case LogicalType::BOOL:
+		return sizeof(bool);
+	default:
+		throw std::runtime_error("Unsupported type!");
+	}
 }
 } // namespace electricdb

@@ -61,6 +61,25 @@ auto Vector::operator=(Vector &&other) noexcept -> Vector & {
 
 	return *this;
 }
+void Vector::Slice(Vector &other, uint32_t offset, uint32_t count) {
+#ifndef NDEBUG
+	assert(selection_ == nullptr);
+	assert(!HasNulls());
+	assert(offset <= size_);
+	assert(offset + count <= size_);
+#endif
+
+	const uint32_t elem_size = GetTypeSize(logical_type_);
+
+	other.logical_type_ = logical_type_;
+	other.data_ = static_cast<uint8_t *>(data_) + offset * elem_size;
+	other.size_ = count;
+	other.capacity_ = count;
+
+	other.nulls_.reset();
+	other.null_count_ = 0;
+	other.selection_ = nullptr;
+}
 
 LogicalType Vector::Type() const noexcept {
 	return logical_type_;
@@ -75,7 +94,9 @@ uint32_t Vector::Capacity() const noexcept {
 }
 
 void Vector::SetSize(uint32_t size) {
+#ifndef NDEBUG
 	assert(size <= capacity_);
+#endif
 	size_ = size;
 }
 
@@ -84,12 +105,16 @@ bool Vector::HasNulls() const noexcept {
 }
 
 bool Vector::IsNull(uint32_t idx) const noexcept {
+#ifndef NDEBUG
 	assert(idx < size_);
+#endif
 	return nulls_->IsNull(idx);
 }
 
 void Vector::SetNull(uint32_t idx) {
+#ifndef NDEBUG
 	assert(idx < size_);
+#endif
 	if (!nulls_->IsNull(idx)) {
 		nulls_->SetNull(idx);
 		null_count_++;
@@ -97,7 +122,9 @@ void Vector::SetNull(uint32_t idx) {
 }
 
 void Vector::ClearNull(uint32_t idx) {
+#ifndef NDEBUG
 	assert(idx < size_);
+#endif
 	if (nulls_->IsNull(idx)) {
 		nulls_->ClearNull(idx);
 		null_count_--;

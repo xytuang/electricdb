@@ -33,6 +33,15 @@ class Vector {
 	auto operator=(Vector &&) noexcept -> Vector &;
 
 	/**
+	 * @brief Fill up `other` with a slice of data from this vector
+	 *
+	 * @param other Other Vector object
+	 * @param offset Where to start slicing from
+	 * @param count How many to slice
+	 */
+	void Slice(Vector &other, uint32_t offset, uint32_t count);
+
+	/**
 	 * @brief Functions below are for getting metadata
 	 *
 	 */
