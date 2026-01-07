@@ -10,6 +10,7 @@ NullMask::NullMask(Arena &arena, uint32_t capacity) {
 	/** Default state is NOT NULL ie. 0 represents not null */
 	std::memset(bits, 0, byte_count);
 }
+
 bool NullMask::IsNull(uint32_t idx) const noexcept {
 	/**
 	 * idx >> 3 tells us which byte we are lookng at in the array
@@ -17,12 +18,15 @@ bool NullMask::IsNull(uint32_t idx) const noexcept {
 	 */
 	return bits[idx >> 3] & (1u << (idx & 7));
 }
+
 void NullMask::SetNull(uint32_t idx) {
 	bits[idx >> 3] |= (1u << (idx & 7));
 }
+
 void NullMask::ClearNull(uint32_t idx) {
 	bits[idx >> 3] &= ~(1u << (idx & 7));
 }
+
 void NullMask::Reset() {
 	std::memset(bits, 0, byte_count);
 }

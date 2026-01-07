@@ -1,6 +1,7 @@
 #pragma once
 
 #include "electricdb/util/arena.h"
+
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
@@ -49,8 +50,8 @@ class SelectionVector {
 	 */
 	inline idx_t Get(idx_t i) const noexcept {
 		if (data_)
-        	return data_[i];
-    	return i;
+			return data_[i];
+		return i;
 	}
 
 	/**
@@ -59,32 +60,24 @@ class SelectionVector {
 	 * @param i Logical index to look up
 	 * @return idx_t Physical index
 	 */
-	inline idx_t GetUnsafe(idx_t i) const noexcept {
-		return data_[i];
-	}
+	inline idx_t GetUnsafe(idx_t i) const noexcept { return data_[i]; }
 
 	/**
 	 * @brief Pointer to underlying index array (or nullptr)
 	 *
 	 * @return sel_t* Pointer to index array
 	 */
-	inline sel_t *Data() noexcept {
-		return data_;
-	}
+	inline sel_t *Data() noexcept { return data_; }
 
-	inline const sel_t *Data() const noexcept {
-		return data_;
-	}
+	inline const sel_t *Data() const noexcept { return data_; }
 
 	/**
 	 * @brief Checks if there is an identity mapping
-	 * 
+	 *
 	 * @return true if data_ == nullptr
 	 * @return false otherwise
 	 */
-	inline bool IsSet() const noexcept {
-		return data_ != nullptr;
-	}
+	inline bool IsSet() const noexcept { return data_ != nullptr; }
 
 	/**
 	 * @brief Set ith entry to row index `row`
@@ -92,9 +85,7 @@ class SelectionVector {
 	 * @param i Logical index to update
 	 * @param row New value at logical index `i`
 	 */
-	inline void Set(idx_t i, idx_t row) noexcept {
-		data_[i] = row;
-	}
+	inline void Set(idx_t i, idx_t row) noexcept { data_[i] = row; }
 
 	/**
 	 * @brief Swap two entries (used by sort)
@@ -102,9 +93,7 @@ class SelectionVector {
 	 * @param a Logical index to swap
 	 * @param b Another logical index to swap
 	 */
-	void Swap(idx_t a, idx_t b) noexcept {
-    	std::swap(data_[a], data_[b]);
-	}
+	void Swap(idx_t a, idx_t b) noexcept { std::swap(data_[a], data_[b]); }
 
 	/**
 	 * @brief Store rows not selected by src inside dst
