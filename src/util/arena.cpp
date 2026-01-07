@@ -70,7 +70,7 @@ auto Arena::operator=(Arena &&other) noexcept -> Arena & {
  * @param alignment Align handle to this value
  * @return void* pointer to aligned region
  */
-void *Arena::allocate(size_t size, size_t alignment) {
+void *Arena::Allocate(size_t size, size_t alignment) {
 	assert(alignment && (alignment & (alignment - 1)) == 0);
 
 	if (blocks_.empty()) {
@@ -110,7 +110,7 @@ void *Arena::allocate(size_t size, size_t alignment) {
  * @brief Reset this arena, freeing all blocks except for the very first block
  *
  */
-void Arena::reset() {
+void Arena::Reset() {
 	for (size_t i = 1; i < blocks_.size(); i++)
 		std::free(blocks_[i].data);
 

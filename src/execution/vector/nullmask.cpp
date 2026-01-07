@@ -6,7 +6,7 @@
 namespace electricdb {
 NullMask::NullMask(Arena &arena, uint32_t capacity) : capacity(capacity) {
 	byte_count = (capacity + 7) / 8;
-	bits = reinterpret_cast<uint8_t *>(arena.allocate(byte_count, alignof(uint8_t)));
+	bits = reinterpret_cast<uint8_t *>(arena.Allocate(byte_count, alignof(uint8_t)));
 
 	/** Default state is NOT NULL ie. 0 represents not null */
 	std::memset(bits, 0, byte_count);

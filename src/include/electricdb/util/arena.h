@@ -29,7 +29,7 @@ class Arena {
 	 * @param alignment Alignment of memory region to allocate
 	 * @return void* Pointer to newly allocated memory region
 	 */
-	void *allocate(size_t size, size_t alignment = alignof(std::max_align_t));
+	void *Allocate(size_t size, size_t alignment = alignof(std::max_align_t));
 
 	/**
 	 * @brief Typed allocation helper
@@ -39,15 +39,15 @@ class Arena {
 	 * @return T* Pointer to newly allocated region
 	 */
 	template <typename T>
-	T *allocate(size_t count = 1) {
-		return reinterpret_cast<T *>(allocate(count * sizeof(T), alignof(T)));
+	T *Allocate(size_t count = 1) {
+		return reinterpret_cast<T *>(Allocate(count * sizeof(T), alignof(T)));
 	}
 
 	/**
 	 * @brief Reset arena, invalidating all allocations
 	 *
 	 */
-	void reset();
+	void Reset();
 
 	size_t bytes_used() const noexcept;
 	size_t bytes_reserved() const noexcept;

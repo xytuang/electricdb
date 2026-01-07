@@ -11,19 +11,19 @@ Vector::Vector(LogicalType type, uint32_t capacity, Arena &arena) {
 	nulls_ = std::make_unique<NullMask>(NullMask(arena, capacity));
 	switch (logical_type_) {
 	case LogicalType::INT32:
-		data_ = reinterpret_cast<void *>(arena.allocate<uint32_t>(capacity));
+		data_ = reinterpret_cast<void *>(arena.Allocate<uint32_t>(capacity));
 		break;
 	case LogicalType::INT64:
-		data_ = reinterpret_cast<void *>(arena.allocate<uint64_t>(capacity));
+		data_ = reinterpret_cast<void *>(arena.Allocate<uint64_t>(capacity));
 		break;
 	case LogicalType::FLOAT:
-		data_ = reinterpret_cast<void *>(arena.allocate<float>(capacity));
+		data_ = reinterpret_cast<void *>(arena.Allocate<float>(capacity));
 		break;
 	case LogicalType::DOUBLE:
-		data_ = reinterpret_cast<void *>(arena.allocate<double>(capacity));
+		data_ = reinterpret_cast<void *>(arena.Allocate<double>(capacity));
 		break;
 	case LogicalType::BOOL:
-		data_ = reinterpret_cast<void *>(arena.allocate<bool>(capacity));
+		data_ = reinterpret_cast<void *>(arena.Allocate<bool>(capacity));
 		break;
 	default:
 		throw std::runtime_error("Unsupported type!");

@@ -8,7 +8,7 @@ SelectionVector::SelectionVector() noexcept {
 }
 
 SelectionVector::SelectionVector(Arena &arena, idx_t capacity) {
-	data_ = reinterpret_cast<sel_t *>(arena.allocate<sel_t>(capacity));
+	data_ = reinterpret_cast<sel_t *>(arena.Allocate<sel_t>(capacity));
 	capacity_ = capacity;
 }
 
