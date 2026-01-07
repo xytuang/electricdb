@@ -58,18 +58,18 @@ class Vector {
 	/** @brief Write access to data */
 	template <typename T>
 	T *Data() {
-	#ifndef NDEBUG
+#ifndef NDEBUG
 		assert(TypeMatches<T>(logical_type_));
-	#endif
+#endif
 		return reinterpret_cast<T *>(data_);
 	}
 
 	/** @brief Guarantee pointer will not be modified */
 	template <typename T>
 	const T *Data() const {
-	#ifndef NDEBUG
+#ifndef NDEBUG
 		assert(TypeMatches<T>(logical_type_));
-	#endif
+#endif
 		return reinterpret_cast<const T *>(data_);
 	}
 

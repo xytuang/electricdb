@@ -11,31 +11,31 @@ struct LogicalTypeTrait;
 
 template <>
 struct LogicalTypeTrait<int32_t> {
-    static constexpr LogicalType type = LogicalType::INT32;
+	static constexpr LogicalType type = LogicalType::INT32;
 };
 
 template <>
 struct LogicalTypeTrait<int64_t> {
-    static constexpr LogicalType type = LogicalType::INT64;
+	static constexpr LogicalType type = LogicalType::INT64;
 };
 
 template <>
 struct LogicalTypeTrait<float> {
-    static constexpr LogicalType type = LogicalType::FLOAT;
+	static constexpr LogicalType type = LogicalType::FLOAT;
 };
 
 template <>
 struct LogicalTypeTrait<double> {
-    static constexpr LogicalType type = LogicalType::DOUBLE;
+	static constexpr LogicalType type = LogicalType::DOUBLE;
 };
 
 template <>
 struct LogicalTypeTrait<bool> {
-    static constexpr LogicalType type = LogicalType::BOOL;
+	static constexpr LogicalType type = LogicalType::BOOL;
 };
 
 template <typename T>
 bool TypeMatches(LogicalType type) {
-    return LogicalTypeTrait<std::remove_cv_t<T>>::type == type;
+	return LogicalTypeTrait<std::remove_cv_t<T>>::type == type;
 }
-}
+} // namespace electricdb
