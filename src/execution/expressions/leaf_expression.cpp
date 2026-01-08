@@ -25,8 +25,8 @@ void ConstantExpr::Execute(ExecutionContext &ctx, Vector &result) {
 
 	if (value_.IsNull()) {
 		for (idx_t i = 0; i < n_; i++) {
-				idx_t row = sel_ ? sel_->Get(i) : i;
-				result.SetNull(row);
+			idx_t row = sel_ ? sel_->Get(i) : i;
+			result.SetNull(row);
 		}
 		return;
 	}

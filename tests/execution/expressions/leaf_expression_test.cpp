@@ -7,7 +7,7 @@ namespace electricdb {
 TEST(LeafExpressionTest, ColumnExprSimpleReference) {
     ExecutionContext ctx;
 
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     std::vector<Vector> input;
     input.emplace_back(LogicalType::INT32, 4, arena);
@@ -38,7 +38,7 @@ TEST(LeafExpressionTest, ColumnExprSimpleReference) {
 
 TEST(LeafExpressionTest, ColumnExprPreservesSelection) {
     ExecutionContext ctx;
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     std::vector<Vector> input;
     input.emplace_back(LogicalType::INT32, 4, arena);
@@ -82,7 +82,7 @@ TEST(LeafExpressionTest, ConstantExprFillConstant) {
 
 TEST(LeafExpressionTest, ConstantExprRespectsSelection) {
     ExecutionContext ctx;
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     SelectionVector sel(arena, 2);
     sel.Set(0, 0);

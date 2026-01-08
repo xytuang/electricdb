@@ -7,7 +7,7 @@
 namespace electricdb {
 TEST(BinaryExpressionTest, SimpleAdd) {
     ExecutionContext ctx;
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     std::vector<Vector> input;
     input.emplace_back(LogicalType::INT32, 3, arena);
@@ -44,7 +44,7 @@ TEST(BinaryExpressionTest, SimpleAdd) {
 
 TEST(BinaryExpressionTest, AddExprNullPropagation) {
     ExecutionContext ctx;
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     std::vector<Vector> input;
     input.emplace_back(LogicalType::INT32, 2, arena);

@@ -16,7 +16,7 @@ void NotExpr::Execute(ExecutionContext &ctx, Vector &result) {
 #ifndef NDEBUG
 	assert(result.Type() == LogicalType::BOOL);
 #endif
-    result.SetSize(child_vec_.Size());
+	result.SetSize(child_vec_.Size());
 	UnaryBoolDispatch<NotOp>(ctx, result, child_vec_);
 }
 

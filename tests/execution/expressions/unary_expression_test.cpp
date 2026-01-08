@@ -7,7 +7,7 @@
 namespace electricdb {
 TEST(UnaryExpressionTest, BasicNot) {
     ExecutionContext ctx;
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     std::vector<Vector> input;
     input.emplace_back(LogicalType::BOOL, 4, arena);
@@ -38,7 +38,7 @@ TEST(UnaryExpressionTest, BasicNot) {
 
 TEST(UnaryExpressionTest, NotExprPropagatesNulls) {
     ExecutionContext ctx;
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     std::vector<Vector> input;
     input.emplace_back(LogicalType::BOOL, 3, arena);
@@ -67,7 +67,7 @@ TEST(UnaryExpressionTest, NotExprPropagatesNulls) {
 
 TEST(UnaryExpressionTest, NegateExprNegatesInt32) {
     ExecutionContext ctx;
-    Arena &arena = ctx.Arena();
+    Arena &arena = ctx.GetArena();
 
     std::vector<Vector> input;
     input.emplace_back(LogicalType::INT32, 3, arena);

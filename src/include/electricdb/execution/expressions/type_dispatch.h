@@ -118,11 +118,12 @@ inline void UnaryBoolDispatch(ExecutionContext &ctx, Vector &out, const Vector &
  * @param rhs
  */
 template <typename OP>
-inline void BinaryTypeDispatch(ExecutionContext &ctx, Vector &out, const Vector &lhs, const Vector &rhs) {
+inline void BinaryTypeDispatch(ExecutionContext &ctx, Vector &out, const Vector &lhs,
+							   const Vector &rhs) {
 
 #ifndef NDEBUG
-    assert(out.Size() == lhs.Size());
-    assert(out.Size() == rhs.Size());
+	assert(out.Size() == lhs.Size());
+	assert(out.Size() == rhs.Size());
 #endif
 
 	auto sel = ctx.Selection();
@@ -209,7 +210,7 @@ inline void ConstantDispatch(ExecutionContext &ctx, Vector &out, const Value &va
 		for (idx_t i = 0; i < n; i++) {
 			idx_t row = sel ? sel->Get(i) : i;
 #ifndef NDEBUG
-            assert(row < out.Size());
+			assert(row < out.Size());
 #endif
 			dst[row] = v;
 		}
@@ -221,7 +222,7 @@ inline void ConstantDispatch(ExecutionContext &ctx, Vector &out, const Value &va
 		for (idx_t i = 0; i < n; i++) {
 			idx_t row = sel ? sel->Get(i) : i;
 #ifndef NDEBUG
-            assert(row < out.Size());
+			assert(row < out.Size());
 #endif
 			dst[row] = v;
 		}
@@ -233,7 +234,7 @@ inline void ConstantDispatch(ExecutionContext &ctx, Vector &out, const Value &va
 		for (idx_t i = 0; i < n; i++) {
 			idx_t row = sel ? sel->Get(i) : i;
 #ifndef NDEBUG
-            assert(row < out.Size());
+			assert(row < out.Size());
 #endif
 			dst[row] = v;
 		}
@@ -245,7 +246,7 @@ inline void ConstantDispatch(ExecutionContext &ctx, Vector &out, const Value &va
 		for (idx_t i = 0; i < n; i++) {
 			idx_t row = sel ? sel->Get(i) : i;
 #ifndef NDEBUG
-            assert(row < out.Size());
+			assert(row < out.Size());
 #endif
 			dst[row] = v;
 		}
@@ -257,7 +258,7 @@ inline void ConstantDispatch(ExecutionContext &ctx, Vector &out, const Value &va
 		for (idx_t i = 0; i < n; i++) {
 			idx_t row = sel ? sel->Get(i) : i;
 #ifndef NDEBUG
-            assert(row < out.Size());
+			assert(row < out.Size());
 #endif
 			dst[row] = v;
 		}

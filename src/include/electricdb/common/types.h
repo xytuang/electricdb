@@ -1,9 +1,9 @@
 #pragma once
 
+#include <cassert>
 #include <cstdint>
 #include <stdexcept>
 #include <type_traits>
-#include <cassert>
 
 namespace electricdb {
 enum class LogicalType : uint8_t { INT32, INT64, FLOAT, DOUBLE, STRING, BOOL, INVALID };
@@ -72,10 +72,10 @@ class Value {
 
 	template <typename T>
 	T Get() const {
-		#ifndef NDEBUG
-			assert(!is_null_);
-			assert(TypeMatches<T>(type_));
-		#endif
+#ifndef NDEBUG
+		assert(!is_null_);
+		assert(TypeMatches<T>(type_));
+#endif
 		if constexpr (std::is_same_v<T, int32_t>) {
 			return i32;
 		} else if constexpr (std::is_same_v<T, int64_t>) {
@@ -91,9 +91,7 @@ class Value {
 		}
 	}
 
-	void SetNull() {
-		is_null_ = true;
-	}
+	void SetNull() { is_null_ = true; }
 
 	template <typename T>
 	void Set(T val) {
@@ -113,12 +111,10 @@ class Value {
 		is_null_ = false;
 	}
 
-	LogicalType GetType() const {
-		return type_;
-	}
+	LogicalType GetType() const { return type_; }
 
 	void SetType(LogicalType type) {
-		type_  = type;
+		type_ = type;
 		is_null_ = true;
 	}
 

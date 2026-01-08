@@ -5,8 +5,8 @@
 #include "electricdb/execution/vector/vector.h"
 #include "electricdb/util/arena.h"
 
-#include <vector>
 #include <deque>
+#include <vector>
 
 namespace electricdb {
 
@@ -30,7 +30,7 @@ class ExecutionContext {
 	}
 
 	/** @brief Arena access */
-	Arena &Arena() { return arena_; }
+	Arena &GetArena() { return arena_; }
 
 	/** @brief Default vector size (batch size) */
 	uint32_t VectorSize() const { return default_vector_size_; }
@@ -55,7 +55,7 @@ class ExecutionContext {
 	}
 
   private:
-	class Arena arena_;
+	Arena arena_;
 
 	uint32_t default_vector_size_;
 

@@ -1,8 +1,8 @@
 #include "electricdb/execution/vector/vector.h"
 
 #include <cassert>
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 
 namespace electricdb {
 Vector::Vector(LogicalType type, uint32_t capacity, Arena &arena) {
@@ -136,8 +136,8 @@ void Vector::ClearNull(uint32_t idx) {
 }
 
 void Vector::ClearNulls() {
-    nulls_->Reset();
-    null_count_ = 0;
+	nulls_->Reset();
+	null_count_ = 0;
 }
 
 void Vector::Reset() {
