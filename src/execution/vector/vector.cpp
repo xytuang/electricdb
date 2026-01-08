@@ -2,19 +2,22 @@
 
 #include <cassert>
 #include <stdexcept>
+#include <iostream>
 
 namespace electricdb {
 Vector::Vector(LogicalType type, uint32_t capacity, Arena &arena) {
 	logical_type_ = type;
 	capacity_ = capacity;
 	size_ = 0;
-	nulls_ = std::make_unique<NullMask>(NullMask(arena, capacity));
+	nulls_ = arena.Allocate<NullMask>(1);
+	new (nulls_) NullMask(arena, capacity);
+
 	switch (logical_type_) {
 	case LogicalType::INT32:
-		data_ = reinterpret_cast<void *>(arena.Allocate<uint32_t>(capacity));
+		data_ = reinterpret_cast<void *>(arena.Allocate<int32_t>(capacity));
 		break;
 	case LogicalType::INT64:
-		data_ = reinterpret_cast<void *>(arena.Allocate<uint64_t>(capacity));
+		data_ = reinterpret_cast<void *>(arena.Allocate<int64_t>(capacity));
 		break;
 	case LogicalType::FLOAT:
 		data_ = reinterpret_cast<void *>(arena.Allocate<float>(capacity));
@@ -29,18 +32,15 @@ Vector::Vector(LogicalType type, uint32_t capacity, Arena &arena) {
 		throw std::runtime_error("Unsupported type!");
 	}
 
-	selection_ = nullptr;
 	null_count_ = 0;
 }
 
 Vector::Vector(Vector &&other) noexcept
 	: logical_type_(other.logical_type_), size_(other.size_), capacity_(other.capacity_),
-	  data_(other.data_), null_count_(other.null_count_), nulls_(std::move(other.nulls_)),
-	  selection_(other.selection_) {
+	  data_(other.data_), null_count_(other.null_count_), nulls_(std::move(other.nulls_)) {
 	other.data_ = nullptr;
 	other.null_count_ = 0;
 	other.size_ = 0;
-	other.selection_ = 0;
 }
 
 auto Vector::operator=(Vector &&other) noexcept -> Vector & {
@@ -51,19 +51,16 @@ auto Vector::operator=(Vector &&other) noexcept -> Vector & {
 		data_ = other.data_;
 		null_count_ = other.null_count_;
 		nulls_ = std::move(other.nulls_);
-		selection_ = other.selection_;
 
 		other.data_ = nullptr;
 		other.size_ = 0;
 		other.null_count_ = 0;
-		other.selection_ = nullptr;
 	}
 
 	return *this;
 }
 void Vector::Slice(Vector &other, uint32_t offset, uint32_t count) {
 #ifndef NDEBUG
-	assert(selection_ == nullptr);
 	assert(!HasNulls());
 	assert(offset <= size_);
 	assert(offset + count <= size_);
@@ -76,9 +73,16 @@ void Vector::Slice(Vector &other, uint32_t offset, uint32_t count) {
 	other.size_ = count;
 	other.capacity_ = count;
 
-	other.nulls_.reset();
+	other.nulls_ = nullptr;
 	other.null_count_ = 0;
-	other.selection_ = nullptr;
+}
+
+void Vector::Reference(const Vector &other) {
+	logical_type_ = other.logical_type_;
+	size_ = other.size_;
+	capacity_ = other.capacity_;
+	nulls_ = other.nulls_;
+	data_ = other.data_;
 }
 
 LogicalType Vector::Type() const noexcept {
@@ -131,25 +135,13 @@ void Vector::ClearNull(uint32_t idx) {
 	}
 }
 
-bool Vector::HasSelection() const noexcept {
-	return selection_ != nullptr;
-}
-
-const SelectionVector *Vector::Selection() const noexcept {
-	return selection_;
-}
-
-void Vector::SetSelection(const SelectionVector *sel) {
-	selection_ = sel;
-}
-
-void Vector::ClearSelection() {
-	selection_ = nullptr;
+void Vector::ClearNulls() {
+    nulls_->Reset();
+    null_count_ = 0;
 }
 
 void Vector::Reset() {
 	size_ = 0;
-	selection_ = nullptr;
 	null_count_ = 0;
 	nulls_->Reset();
 }

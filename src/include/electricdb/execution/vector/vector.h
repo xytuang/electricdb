@@ -5,6 +5,7 @@
 #include "electricdb/execution/vector/selection_vector.h"
 #include "electricdb/util/arena.h"
 
+#include <cassert>
 #include <memory>
 
 namespace electricdb {
@@ -40,6 +41,13 @@ class Vector {
 	 * @param count How many to slice
 	 */
 	void Slice(Vector &other, uint32_t offset, uint32_t count);
+
+	/**
+	 * @brief Use this Vector as an alias for other. zero-copy
+	 *
+	 * @param other Vector to reference
+	 */
+	void Reference(const Vector &other);
 
 	/**
 	 * @brief Functions below are for getting metadata
@@ -115,33 +123,7 @@ class Vector {
 	 */
 	void ClearNull(uint32_t idx);
 
-	/**
-	 * @brief Checks if there is a selection vector ie. filter applied to this vector
-	 *
-	 * @return true if there is a selection vector
-	 * @return false otherwise
-	 */
-	bool HasSelection() const noexcept;
-
-	/**
-	 * @brief Returns read only access to the Selection Vector applied to this vector
-	 *
-	 * @return const SelectionVector*
-	 */
-	const SelectionVector *Selection() const noexcept;
-
-	/**
-	 * @brief Set a selection vector for this vector
-	 *
-	 * @param sel
-	 */
-	void SetSelection(const SelectionVector *sel);
-
-	/**
-	 * @brief Remove selection vector from this vector
-	 *
-	 */
-	void ClearSelection();
+	void ClearNulls();
 
 	void Reset();
 
@@ -151,9 +133,6 @@ class Vector {
 	uint32_t capacity_;
 	void *data_;
 	uint32_t null_count_;
-	std::unique_ptr<NullMask> nulls_;
-	/** @brief  selection_ is a non owning pointer. The referenced selection vector must outlive the
-	 * Vector*/
-	const SelectionVector *selection_;
+	NullMask *nulls_;
 };
 } // namespace electricdb

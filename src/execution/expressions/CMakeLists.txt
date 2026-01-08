@@ -1,7 +1,9 @@
 add_library(execution_expressions
     codegen.cpp
     eval.cpp
-    expression.cpp
+    leaf_expression.cpp
+    unary_expression.cpp
+    binary_expression.cpp
 )
 
 target_link_libraries(execution_expressions

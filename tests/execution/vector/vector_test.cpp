@@ -17,7 +17,6 @@ TEST_F(VectorTest, ConstructBasic) {
 	EXPECT_EQ(vec.Size(), 0u);
 	EXPECT_EQ(vec.Capacity(), 128u);
 	EXPECT_FALSE(vec.HasNulls());
-	EXPECT_FALSE(vec.HasSelection());
 }
 
 TEST_F(VectorTest, DataAccess) {
@@ -66,47 +65,15 @@ TEST_F(VectorTest, NullIdempotence) {
 	EXPECT_FALSE(vec.HasNulls());
 }
 
-TEST_F(VectorTest, SelectionVectorAttach) {
-	Vector vec(LogicalType::INT32, 8, arena);
-	vec.SetSize(5);
-
-	SelectionVector sel(arena, 5);
-	sel.Set(0, 4);
-	sel.Set(1, 3);
-	sel.Set(2, 2);
-	sel.Set(3, 1);
-	sel.Set(4, 0);
-
-	vec.SetSelection(&sel);
-
-	EXPECT_TRUE(vec.HasSelection());
-	EXPECT_EQ(vec.Selection(), &sel);
-}
-
-TEST_F(VectorTest, SelectionVectorIdentity) {
-	Vector vec(LogicalType::INT32, 8, arena);
-	vec.SetSize(4);
-
-	EXPECT_FALSE(vec.HasSelection());
-
-	for (uint32_t i = 0; i < vec.Size(); i++) {
-		EXPECT_EQ(i, i);
-	}
-}
-
 TEST_F(VectorTest, ResetClearsState) {
 	Vector vec(LogicalType::INT32, 8, arena);
 	vec.SetSize(4);
 	vec.SetNull(2);
 
-	SelectionVector sel(arena, 4);
-	vec.SetSelection(&sel);
-
 	vec.Reset();
 
 	EXPECT_EQ(vec.Size(), 0u);
 	EXPECT_FALSE(vec.HasNulls());
-	EXPECT_FALSE(vec.HasSelection());
 }
 
 TEST_F(VectorTest, MoveConstructor) {

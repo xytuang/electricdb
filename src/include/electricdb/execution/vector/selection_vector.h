@@ -71,6 +71,8 @@ class SelectionVector {
 
 	inline const sel_t *Data() const noexcept { return data_; }
 
+	inline sel_t Size() const noexcept { return capacity_; }
+
 	/**
 	 * @brief Checks if there is an identity mapping
 	 *
